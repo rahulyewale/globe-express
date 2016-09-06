@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0d4dcede-96a8-4d21-9c92-1bfddf86ae33">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="awbCharges" class="java.lang.Integer"/>
+	<field name="frightCharges" class="java.lang.Integer"/>
+    <field name="fovCharges" class="java.lang.Integer"/>
+    <field name="odaCharges" class="java.lang.Integer"/>
+    <field name="fuelSurcharges" class="java.lang.Integer"/>
+    <field name="serviceTax" class="java.lang.Integer"/>
+    <field name="totalAmount" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="10"/>
+	</columnHeader>
+	<detail>
+		<band height="160" splitType="Stretch">
+			<staticText>
+				<reportElement x="28" y="15" width="100" height="20" backcolor="#FFFFFF" uuid="41b3ce12-7b7d-4198-9429-dad233095860"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[AWB Charges]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="35" width="100" height="20" uuid="d764d45e-45c7-49b5-9d21-ee055407db23"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fright Charges	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="55" width="100" height="20" backcolor="#FFFFFF" uuid="15eff4c8-97e5-4379-9b75-a1582f89938d"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[FOV Charges]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="75" width="100" height="20" backcolor="#FFFFFF" uuid="43cf0142-e8b3-4ff0-af2c-5df93674ecec"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[ODA Charges	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="95" width="100" height="20" backcolor="#FFFFFF" uuid="19af33ea-51e2-4c1e-8270-8d347e438d4f"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Fuel Surcharges	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="115" width="100" height="20" backcolor="#FFFFFF" uuid="7ffbb442-c344-40cc-a632-f17c1933f941"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Service Tax 14.5%	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="135" width="100" height="20" backcolor="#FFFFFF" uuid="0231f0e8-fa12-4517-b88b-2b1726c599e2"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="12" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="128" y="15" width="100" height="20" uuid="9ebfdfc2-3f67-458e-ae08-327c26a7b15d"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{awbCharges}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="128" y="55" width="100" height="20" uuid="11dd8b98-7576-466c-ab47-450e5b5d598f"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{fovCharges}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="128" y="35" width="100" height="20" uuid="bea947a8-56d6-43a5-a932-151bf84a0964"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{frightCharges}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="128" y="95" width="100" height="20" uuid="e44c3c27-c4c2-4800-96d2-b6895f7194e9"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{fuelSurcharges}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="128" y="75" width="100" height="20" uuid="e97b9a90-37aa-464a-b428-b415560be813"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{odaCharges}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="128" y="115" width="100" height="20" uuid="3147454e-5bc2-417f-9093-02044ece2379"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{serviceTax}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="128" y="135" width="100" height="20" uuid="a532315e-6229-46e0-8808-39d2b31a3e8e"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{totalAmount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
