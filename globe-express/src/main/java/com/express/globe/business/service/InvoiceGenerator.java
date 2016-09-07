@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -26,8 +28,12 @@ import com.express.globe.business.model.OrderDetail;
 
 public class InvoiceGenerator
 {
+	static final Logger logger = Logger.getLogger(InvoiceGenerator.class);
+	
 	public String generateInvoice(List<OrderDetail> orderDetailsList, String orderDetailsFileName) throws Exception
 	{
+		logger.debug("Hello World!");
+		
 		List<InvoiceDetails> invoiceDetailsList = new ArrayList<InvoiceDetails>();
 
 		for (OrderDetail orderDetail : orderDetailsList)

@@ -28,6 +28,8 @@ import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
 
+import org.apache.log4j.BasicConfigurator;
+
 import com.express.globe.business.model.OrderDetail;
 import com.express.globe.business.service.InvoiceGenerator;
 import com.express.globe.business.service.OrderDetailsManager;
@@ -223,6 +225,7 @@ public class ExcelToJtable extends JFrame
 
 	public static void main(String[] args)
 	{
+		BasicConfigurator.configure();
 		new ExcelToJtable();
 	}
 }
