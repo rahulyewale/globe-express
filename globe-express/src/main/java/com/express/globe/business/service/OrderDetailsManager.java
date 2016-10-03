@@ -10,7 +10,6 @@ public class OrderDetailsManager
 		{
 			if (i == 0)
 			{
-
 				orderDetail.setSrNo(Long.valueOf(cellContent));
 			}
 			else if (i == 1)
@@ -76,6 +75,10 @@ public class OrderDetailsManager
 			else if (i == 16)
 			{
 				orderDetail.setAddress(cellContent);
+			}
+			else if (i == 17)
+			{
+				orderDetail.setZone(cellContent);
 			}
 		}
 	}

@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -29,13 +27,18 @@ import jxl.Workbook;
 import jxl.read.biff.BiffException;
 
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 
 import com.express.globe.business.model.OrderDetail;
 import com.express.globe.business.service.InvoiceGenerator;
 import com.express.globe.business.service.OrderDetailsManager;
+import com.express.globe.business.service.util.ApplicationConfiguration;
+import com.express.globe.business.service.util.ConfigurationChangeListner;
 
 public class ExcelToJtable extends JFrame
 {
+	static final Logger logger = Logger.getLogger(ExcelToJtable.class);
+
 	/**
 	 * 
 	 */
@@ -75,6 +78,9 @@ public class ExcelToJtable extends JFrame
 		{
 			public void actionPerformed(ActionEvent arg0)
 			{
+				String test = ApplicationConfiguration.getInstance().getConfiguration("test");
+				logger.debug("Hi Hellow" + test);
+
 				JFileChooser jChooser = new JFileChooser();
 				jChooser.showOpenDialog(null);
 
@@ -87,7 +93,7 @@ public class ExcelToJtable extends JFrame
 				{
 					fillData(file);
 					model = new DefaultTableModel(data, headers);
-					tableWidth = model.getColumnCount() * 150;
+					tableWidth = model.getColumnCount() * 70;
 					tableHeight = model.getRowCount() * 25;
 					table.setPreferredSize(new Dimension(tableWidth, tableHeight));
 
@@ -130,14 +136,14 @@ public class ExcelToJtable extends JFrame
 		model = new DefaultTableModel(data, headers);
 
 		table.setModel(model);
-		table.setBackground(Color.white);
+		table.setBackground(Color.WHITE);
 
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		table.setEnabled(false);
-		table.setRowHeight(25);
+		table.setRowHeight(20);
 		table.setRowMargin(4);
 
-		tableWidth = model.getColumnCount() * 150;
+		tableWidth = 1400;
 		tableHeight = model.getRowCount() * 25;
 		table.setPreferredSize(new Dimension(tableWidth, tableHeight));
 
@@ -170,7 +176,6 @@ public class ExcelToJtable extends JFrame
 			}
 			catch (IOException ex)
 			{
-				Logger.getLogger(ExcelToJtable.class.getName()).log(Level.SEVERE, null, ex);
 			}
 
 			JFrame frame = new JFrame("Input Dialog");
@@ -182,8 +187,8 @@ public class ExcelToJtable extends JFrame
 			{
 				sheet = workbook.getSheet(selectedSheet);
 			}
-			orderDetailsFileName = "Invoice-"+orderDetailsFileName.replace(".xls", "-")+selectedSheet;
-			
+			orderDetailsFileName = "Invoice-" + orderDetailsFileName.replace(".xls", "-") + selectedSheet;
+
 			headers.clear();
 			for (int i = 0; i < sheet.getColumns(); i++)
 			{
@@ -225,7 +230,23 @@ public class ExcelToJtable extends JFrame
 
 	public static void main(String[] args)
 	{
+		loadConfigFile();
+		//Initialize log4j
 		BasicConfigurator.configure();
+		
 		new ExcelToJtable();
+	}
+
+	private static void loadConfigFile()
+	{
+		ConfigurationChangeListner listner = new ConfigurationChangeListner("./config.properties");
+		try
+		{
+			new Thread(listner).start();
+		}
+		catch (Exception e)
+		{
+			logger.error("Error loading listener property file ", e);
+		}
 	}
 }

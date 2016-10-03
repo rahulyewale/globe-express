@@ -44,6 +44,8 @@ public class OrderDetail implements Serializable
 	private String state;
 
 	private String status;
+	
+	private String zone;
 
 	public OrderDetail()
 	{
@@ -227,6 +229,16 @@ public class OrderDetail implements Serializable
 	public void setRieterWeight(Double rieterWeight)
 	{
 		this.rieterWeight = rieterWeight;
+	}
+
+	public String getZone()
+	{
+		return zone;
+	}
+
+	public void setZone(String zone)
+	{
+		this.zone = zone;
 	}
 
 }

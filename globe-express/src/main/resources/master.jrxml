@@ -18,11 +18,11 @@
 	<field name="serviceChargeList" class="java.util.List"/>
 	<field name="awbCharges" class="java.lang.Integer"/>
 	<field name="frightCharges" class="java.lang.Integer"/>
-	<field name="fovCharges" class="java.lang.Integer"/>
-	<field name="odaCharges" class="java.lang.Integer"/>
-	<field name="fuelSurcharges" class="java.lang.Integer"/>
-	<field name="serviceTax" class="java.lang.Integer"/>
-	<field name="totalAmount" class="java.lang.Integer"/>
+	<field name="fovCharges" class="java.lang.Double"/>
+	<field name="odaCharges" class="java.lang.Double"/>
+	<field name="fuelSurcharges" class="java.lang.Double"/>
+	<field name="serviceTax" class="java.lang.Double"/>
+	<field name="totalAmount" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>

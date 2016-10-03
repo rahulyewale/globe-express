@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -22,63 +20,75 @@ import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
 
-import com.express.globe.business.model.ChargeDetails;
+import org.apache.log4j.Logger;
+
 import com.express.globe.business.model.InvoiceDetails;
 import com.express.globe.business.model.OrderDetail;
+import com.express.globe.business.service.calculation.ChargesCalculator;
 
 public class InvoiceGenerator
 {
 	static final Logger logger = Logger.getLogger(InvoiceGenerator.class);
-	
+
 	public String generateInvoice(List<OrderDetail> orderDetailsList, String orderDetailsFileName) throws Exception
 	{
 		logger.debug("Hello World!");
-		
+
 		List<InvoiceDetails> invoiceDetailsList = new ArrayList<InvoiceDetails>();
 
 		for (OrderDetail orderDetail : orderDetailsList)
 		{
 			com.express.globe.business.model.InvoiceDetails invoiceDetails = createInvoice(orderDetail);
-			
-			if(null!=invoiceDetails)
-			invoiceDetailsList.add(invoiceDetails);
+
+			if (null != invoiceDetails)
+				invoiceDetailsList.add(invoiceDetails);
 		}
 
-	/*	ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File(classLoader.getResource("file/test.xml").getFile());
-	*/	
-		String pathForSaving = "E:\\Reports\\"+orderDetailsFileName+".pdf";
-		String pathForMaster = "E:\\Rahul\\sunilj\\report\\jrxml\\master.jrxml";
-		String subReportFileName = "E:\\Rahul\\sunilj\\report\\jrxml\\sub.jrxml";
+		/*
+		 * ClassLoader classLoader = getClass().getClassLoader(); File file = new
+		 * File(classLoader.getResource("file/test.xml").getFile());
+		 */
+		//String pathForSaving = "E:\\Reports\\" + orderDetailsFileName + ".pdf";
+		String pathForSaving = ".\\" + orderDetailsFileName + ".pdf";
+	//	String pathForMaster = "E:\\Rahul\\sunilj\\report\\jrxml\\master.jrxml";
+	//	String subReportFileName = "E:\\Rahul\\sunilj\\report\\jrxml\\sub.jrxml";
 
 		JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(invoiceDetailsList);
 		Map<String, Object> parameters = new HashMap<String, Object>();
 
-		File masterReportPattern = new File(ClassLoader.getSystemClassLoader().getResource("master.jrxml").getFile());
-		JasperDesign jasperDesign = JRXmlLoader.load(masterReportPattern);
-		JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+		try
+		{
+			//File masterReportPattern = new File(ClassLoader.getSystemClassLoader().getResource("master.jrxml").getFile());
+			
+			JasperDesign jasperDesign = JRXmlLoader.load(getClass().getResourceAsStream("/master.jrxml"));
+			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
 
-		File subRepPattern = new File(ClassLoader.getSystemClassLoader().getResource("sub.jrxml").getFile());
-		JasperDesign subRepPatternDesign = JRXmlLoader.load(subRepPattern);
-		JasperReport jasperSubReport = JasperCompileManager.compileReport(subRepPatternDesign);
+			// subRepPattern = new File(ClassLoader.getSystemClassLoader().getResource("sub.jrxml").getFile());
+			JasperDesign subRepPatternDesign = JRXmlLoader.load(getClass().getResourceAsStream("/sub.jrxml"));
+			JasperReport jasperSubReport = JasperCompileManager.compileReport(subRepPatternDesign);
 
-		parameters.put("subreportParameter", jasperSubReport);
-		
-		String orderDetailsName = "Globe-Express"+orderDetailsFileName;
-		System.out.println("ASDFGH"+orderDetailsFileName);
-		parameters.put("orderDetailName", orderDetailsName);
-		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
-		JasperExportManager.exportReportToPdfFile(jasperPrint, pathForSaving);
+			parameters.put("subreportParameter", jasperSubReport);
+
+			String orderDetailsName = "Globe-Express" + orderDetailsFileName;
+			parameters.put("orderDetailName", orderDetailsName);
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
+			JasperExportManager.exportReportToPdfFile(jasperPrint, pathForSaving);
+
+		}
+		catch (Exception e)
+		{
+			logger.error("error", e);
+		}
 		return pathForSaving;
 
 	}
-	
+
 	private InvoiceDetails createInvoice(OrderDetail orderDetail)
 	{
 		InvoiceDetails invoiceDetails = null;
 		if (null != orderDetail.getSrNo() && !orderDetail.getSrNo().equals(0))
 		{
-			invoiceDetails = new InvoiceDetails();
+			invoiceDetails = new ChargesCalculator().calculateInvoiceDetails(orderDetail);
 
 			invoiceDetails.setAwbNo(orderDetail.getDocumentNo());
 
@@ -90,22 +100,7 @@ public class InvoiceGenerator
 			String shipper = "Rieter India Pvt. Ltd.Shindewadi,Shirwal.";
 
 			invoiceDetails.setShipper(shipper);
-			// TODO: Need to have strategy to define delivery date.
 			invoiceDetails.setShippingDate(orderDetail.getBookingDate());
-			invoiceDetails.setWeight(String.valueOf(orderDetail.getFedexWeight()));
-
-			// TODO : Remove this..not required.
-			ChargeDetails chargeDetails = new ChargeDetails();
-			invoiceDetails.getServiceChargeList().add(chargeDetails);
-
-			invoiceDetails.setAwbCharges(123);
-			invoiceDetails.setFovCharges(345);
-			invoiceDetails.setFrightCharges(12345);
-			invoiceDetails.setFuelSurcharges(5555);
-			invoiceDetails.setOdaCharges(345);
-			invoiceDetails.setServiceTax(543);
-			invoiceDetails.setTotalAmount(112345);
-
 		}
 		return invoiceDetails;
 
@@ -113,10 +108,9 @@ public class InvoiceGenerator
 
 	public void createMaster() throws JRException
 	{
-
 		String pathForSaving = "E:\\Rahul\\sunilj\\report\\master.pdf";
 		String pathForSavingxl = "E:\\Rahul\\sunilj\\report\\master.xlsx";
-		String pathForSavingdocx = "E:\\Rahul\\sunilj\\report\\master.docx";
+		//String pathForSavingdocx = "E:\\Rahul\\sunilj\\report\\master.docx";
 		String pathForMaster = "E:\\Rahul\\sunilj\\report\\jrxml\\master.jrxml";
 		String subReportFileName = "E:\\Rahul\\sunilj\\report\\jrxml\\sub.jrxml";
 
@@ -131,16 +125,14 @@ public class InvoiceGenerator
 		invoiceDetails.setShippingDate("10-May-2016");
 		invoiceDetails.setWeight("10");
 
-		ChargeDetails chargeDetails = new ChargeDetails();
-		invoiceDetails.setAwbCharges(123);
+		/*invoiceDetails.setAwbCharges(123);
 		invoiceDetails.setFovCharges(345);
 		invoiceDetails.setFrightCharges(12345);
 		invoiceDetails.setFuelSurcharges(5555);
 		invoiceDetails.setOdaCharges(345);
 		invoiceDetails.setServiceTax(543);
-		invoiceDetails.setTotalAmount(112345);
+		invoiceDetails.setTotalAmount(112345);*/
 
-		invoiceDetails.getServiceChargeList().add(chargeDetails);
 
 		InvoiceDetails invoiceDetails1 = new InvoiceDetails();
 
@@ -153,16 +145,14 @@ public class InvoiceGenerator
 		invoiceDetails1.setShippingDate("16-May-2016");
 		invoiceDetails1.setWeight("108");
 
-		ChargeDetails chargeDetails1 = new ChargeDetails();
-		invoiceDetails1.setAwbCharges(435);
+		/*invoiceDetails1.setAwbCharges(435);
 		invoiceDetails1.setFovCharges(645);
 		invoiceDetails1.setFrightCharges(54);
 		invoiceDetails1.setFuelSurcharges(455);
 		invoiceDetails1.setOdaCharges(346);
 		invoiceDetails1.setServiceTax(765);
-		invoiceDetails1.setTotalAmount(2344);
+		invoiceDetails1.setTotalAmount(2344);*/
 
-		invoiceDetails1.getServiceChargeList().add(chargeDetails1);
 
 		ArrayList<InvoiceDetails> dataBeanList = new ArrayList<InvoiceDetails>();
 

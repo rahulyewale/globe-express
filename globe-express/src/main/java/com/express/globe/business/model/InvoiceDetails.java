@@ -1,7 +1,5 @@
 package com.express.globe.business.model;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class InvoiceDetails
 {
@@ -13,14 +11,13 @@ private String shipper;
 private String recepient;
 private String pieces;
 private String weight;
-private Integer awbCharges;
-private Integer frightCharges;
-private Integer fovCharges;
-private Integer odaCharges;
-private Integer fuelSurcharges;
-private Integer serviceTax;
-private Integer totalAmount;
-private List<ChargeDetails> serviceChargeList = new ArrayList<ChargeDetails>();
+private Double awbCharges;
+private Double frightCharges;
+private Double fovCharges;
+private Double odaCharges;
+private Double fuelSurcharges;
+private Double serviceTax;
+private Double totalAmount;
 
 public String getAwbNo()
 {
@@ -86,67 +83,59 @@ public void setWeight(String weight)
 {
 	this.weight = weight;
 }
-public List<ChargeDetails> getServiceChargeList()
-{
-	return serviceChargeList;
-}
-public void setServiceChargeList(List<ChargeDetails> serviceChargeList)
-{
-	this.serviceChargeList = serviceChargeList;
-}
-public Integer getAwbCharges()
+public Double getAwbCharges()
 {
 	return awbCharges;
 }
-public void setAwbCharges(Integer awbCharges)
+public void setAwbCharges(Double awbCharges)
 {
 	this.awbCharges = awbCharges;
 }
-public Integer getFrightCharges()
+public Double getFrightCharges()
 {
 	return frightCharges;
 }
-public void setFrightCharges(Integer frightCharges)
+public void setFrightCharges(Double frightCharges)
 {
 	this.frightCharges = frightCharges;
 }
-public Integer getFovCharges()
+public Double getFovCharges()
 {
 	return fovCharges;
 }
-public void setFovCharges(Integer fovCharges)
+public void setFovCharges(Double fovCharges)
 {
 	this.fovCharges = fovCharges;
 }
-public Integer getOdaCharges()
+public Double getOdaCharges()
 {
 	return odaCharges;
 }
-public void setOdaCharges(Integer odaCharges)
+public void setOdaCharges(Double odaCharges)
 {
 	this.odaCharges = odaCharges;
 }
-public Integer getFuelSurcharges()
+public Double getFuelSurcharges()
 {
 	return fuelSurcharges;
 }
-public void setFuelSurcharges(Integer fuelSurcharges)
+public void setFuelSurcharges(Double fuelSurcharges)
 {
 	this.fuelSurcharges = fuelSurcharges;
 }
-public Integer getServiceTax()
+public Double getServiceTax()
 {
 	return serviceTax;
 }
-public void setServiceTax(Integer serviceTax)
+public void setServiceTax(Double serviceTax)
 {
 	this.serviceTax = serviceTax;
 }
-public Integer getTotalAmount()
+public Double getTotalAmount()
 {
 	return totalAmount;
 }
-public void setTotalAmount(Integer totalAmount)
+public void setTotalAmount(Double totalAmount)
 {
 	this.totalAmount = totalAmount;
 }
