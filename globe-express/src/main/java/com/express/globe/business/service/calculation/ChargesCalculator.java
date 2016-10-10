@@ -5,14 +5,14 @@ import com.express.globe.business.model.OrderDetail;
 
 public class ChargesCalculator
 {
-	public final InvoiceDetails calculateInvoiceDetails(OrderDetail orderDetail)
+	public final InvoiceDetails getInvoiceDetailsWithCharges(OrderDetail orderDetail)
 	{
 		double awbCharges = new AwbChargesCalculator().calculateAwbCharges(orderDetail);
 		double weightValue = new WeightCalculator().calculateWeight(orderDetail);
-		double frightChargesValue = new FrightChargesCalculator().calculateFrightCharges(orderDetail);
+		double frightChargesValue = new FrightChargesCalculator().calculateFrightCharges(orderDetail,weightValue);
 		double fovChargesValue = new FOVChargesCalculator().calculateFOVCharges(orderDetail);
-		double odaCharges = new ODAChargesCalculator().calculateODACharges(orderDetail);
-		double fuelSurcharge = new FuelSurchargeCalculator().calculateFuelSurcharge(orderDetail);
+		double odaCharges = new ODAChargesCalculator().calculateODACharges(orderDetail,weightValue);
+		double fuelSurcharge = new FuelSurchargeCalculator().calculateFuelSurcharge(orderDetail,frightChargesValue);
 
 		double totalChargesWithoutServiceTax = awbCharges + frightChargesValue + fovChargesValue + odaCharges + fuelSurcharge;
 

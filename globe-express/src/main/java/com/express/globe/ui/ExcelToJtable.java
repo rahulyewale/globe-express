@@ -19,6 +19,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 
 import jxl.Cell;
@@ -62,6 +64,14 @@ public class ExcelToJtable extends JFrame
 	public ExcelToJtable()
 	{
 		super("Globe Express");
+		try
+		{
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		}
+		catch (Exception e2)
+		{
+			e2.printStackTrace();
+		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JPanel buttonPanel = new JPanel();

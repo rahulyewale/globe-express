@@ -18,6 +18,7 @@ private Double odaCharges;
 private Double fuelSurcharges;
 private Double serviceTax;
 private Double totalAmount;
+private String taxPercentage;
 
 public String getAwbNo()
 {
@@ -138,6 +139,14 @@ public Double getTotalAmount()
 public void setTotalAmount(Double totalAmount)
 {
 	this.totalAmount = totalAmount;
+}
+public String getTaxPercentage()
+{
+	return taxPercentage;
+}
+public void setTaxPercentage(String taxPercentage)
+{
+	this.taxPercentage = taxPercentage;
 }
 
 }

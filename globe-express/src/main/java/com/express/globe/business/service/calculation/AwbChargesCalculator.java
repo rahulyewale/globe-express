@@ -1,20 +1,15 @@
 package com.express.globe.business.service.calculation;
 
 import com.express.globe.business.model.OrderDetail;
+import com.express.globe.business.service.util.ApplicationConfiguration;
 
 public class AwbChargesCalculator
 {
-
-	public double calculateFOVCharges(OrderDetail orderDetail)
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	private static final String AWB_CHARGES = "awb.charges";
 
 	public double calculateAwbCharges(OrderDetail orderDetail)
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return Double.valueOf(ApplicationConfiguration.getInstance().getConfiguration(AWB_CHARGES));
 	}
 
 }
